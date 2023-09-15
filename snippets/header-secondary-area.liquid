@@ -1,0 +1,21 @@
+{%- liquid
+	if customer
+  	assign profile_link = routes.account_url
+		assign profile_text = 'sections.header.my_account' | t
+	else
+  	assign profile_link = routes.account_login_url
+		assign profile_text = 'sections.header.login' | t
+	endif
+-%}
+<div class="thb-secondary-area thb-header-right">
+	{%- unless header_settings.style == 'style4' -%}
+	<div class="no-js-hidden">
+		{%- render 'localization', show_language_switcher: header_settings.show_language_switcher, show_currency_switcher: header_settings.show_currency_switcher, class: 'inside-header' -%}
+	</div>
+	{%- endunless -%}
+	{%- if shop.customer_accounts_enabled -%}
+    <a class="thb-secondary-area-item thb-secondary-myaccount" href="{{ profile_link | escape }}" title="{{ 'sections.header.my_account' | t }}"><span>{{ profile_text }}</span></a>
+  {%- endif -%}
+	<a class="thb-secondary-area-item thb-quick-search" href="{{ routes.search_url }}" title="{{ 'sections.header.search' | t }}">{%- render 'svg-icons' with 'search' -%}</a>
+	<a href="https://ondaworks.com" title="Ondaworks.com" class="thb-secondary-area-item thb-ondaworks">Ondaworks.com</a>
+</div>
